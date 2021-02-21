@@ -1,1 +1,3 @@
 ## CLInux
+
+`tutorial.py` possui alguns exemplos de orientação à objetos em Python...
