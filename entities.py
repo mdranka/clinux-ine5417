@@ -4,3 +4,9 @@ class User:
         self.password = password
         # Por padrão, todo usuário é criado como 'comum'
         self.permission = 'common'
+
+class Filesystem:
+    def __init__(self):
+        self.current_dir = []
+        self.fs = {}
+        

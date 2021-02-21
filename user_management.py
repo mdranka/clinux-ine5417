@@ -1,5 +1,5 @@
 from db import user_db
-from user import User
+from entities import User
 
 # Admin methods
 

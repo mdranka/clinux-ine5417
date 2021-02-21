@@ -5,16 +5,12 @@ class Input:
     def __init__(self):
         pass
 
-    def process(self, command, caller):
+    def process(self, command, caller, filesystem):
         args = command.split()  # [ 'comando', 'arg1', 'arg2', ... ]
         name = args[0]  # Nome do comando
 
         if not(name in commands_list):
-            # TODO
-            # Melhorar esse print
-            print('''Falha. Comando inexistente.
-            
-Lista de comandos:''')
+            print("Falha. Comando inexistente.\n\nLista de comandos:")
             
             for i in commands_list:
                 print(i)
@@ -29,20 +25,26 @@ Lista de comandos:''')
             return 1
 
         if not(caller.permission == 'admin' and command in admin_commands):
-            print('''Acesso negado. Você não possui permissão para isto.
-            
-Lista de comandos restritos:''')
+            print("Acesso negado. Você não possui permissão para isto.\n\nLista de comandos restritos:")
 
             for i in admin_commands:
                 print(i)
             
             return 1
 
-        return self.call_command(args[0], args[1:], caller.permission)
+        # Concatenei filesystem com os args, desta forma o filesystem sempre vai ser
+        # o primeiro argumento passado...
+
+        # TODO
+        # Será que devo passar o filesystem apenas para classes específicas ?
+        self.call_command(args[0], [filesystem] + args[1:])
+        return 0
     
-    def call_command(self, command, args, permissions):
+    def call_command(self, command, args):
         print(command)
         print(args)
         
+        # TODO
+        # Passar filesystem
         return commands_dict[command](*args)
 
