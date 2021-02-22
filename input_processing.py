@@ -38,6 +38,7 @@ class Input:
         # TODO
         # Será que devo passar o filesystem apenas para classes específicas ?
         self.call_command(args[0], [filesystem] + args[1:])
+        
         return 0
     
     def call_command(self, command, args):

@@ -1,26 +1,25 @@
 # File and Directory management classes
 
-class Files():
+class File_utils():
         
     # Método privado
     @staticmethod
-    def __get_dir_dict(filesystem):
+    def get_current_dir(filesystem):
         # d recebe root
         d = filesystem.fs
         # Vamos percorrer até chegarmos no diretório atual
-        for dir in filesystem.current_dir:
+        for dir in filesystem.get_path():
             d = d[dir]
         
-        print(f'd: {d}')
         return d
     
     @staticmethod
     def mkdir(filesystem, filename):
-        Files.__get_dir_dict(filesystem)[filename] = {}
+        File_utils.get_current_dir(filesystem)[filename] = {}
         
     @staticmethod
     def touch(filesystem, filename):
-        Files.__get_dir_dict(filesystem)[filename] = []
+        File_utils.get_current_dir(filesystem)[filename] = []
 
     @staticmethod
     def rm(filesystem, filename, recursive):
@@ -29,8 +28,32 @@ class Files():
 
     @staticmethod
     def ls(filesystem):
-        print(f"filesystem ls: {filesystem.fs}")
-        for i in Files.__get_dir_dict(filesystem):
+        for i in File_utils.get_current_dir(filesystem):
             print(i)
+
+    @staticmethod
+    def cd(filesystem, path):
+        
+        d = File_utils.get_current_dir(filesystem)
+
+        if (path == ".."):
+            if (len(filesystem.get_path()) == 1):
+                print("Falha. Você está na pasta raíz")
+            else:
+                filesystem.pop_path()
+        
+        elif (path not in File_utils.get_current_dir(filesystem)):
+            print(f"Falha. Diretório {path} não encontrado")
+
+        elif (isinstance(d[path], list)):
+            print(f"Falha. {path} não é um diretório")
+
+        else:
+            filesystem.append_path(path)
+        
+
+
+        
+
 
     
