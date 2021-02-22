@@ -1,4 +1,4 @@
-from utils import commands_list, commands_dict, admin_commands
+from utils import commands_dict, admin_commands
 
 
 class Input:
@@ -9,22 +9,22 @@ class Input:
         args = command.split()  # [ 'comando', 'arg1', 'arg2', ... ]
         name = args[0]  # Nome do comando
 
-        if not(name in commands_list):
+        if not(name in commands_dict):
             print("Falha. Comando inexistente.\n\nLista de comandos:")
             
-            for i in commands_list:
+            for i in commands_dict:
                 print(i)
 
             return 1
         
-        if not(len(args) >= commands_list[name][0] and len(args) <= commands_list[name][1] ):
+        if not(len(args) >= commands_dict[name][1][0] and len(args) <= commands_dict[name][1][1] ):
             print("Falha. Quantidade de argumentos inválida")
             
             commands_dict[command].help()
 
             return 1
 
-        if not(caller.permission == 'admin' and command in admin_commands):
+        if (caller.permission == 'common' and command in admin_commands):
             print("Acesso negado. Você não possui permissão para isto.\n\nLista de comandos restritos:")
 
             for i in admin_commands:
@@ -41,10 +41,10 @@ class Input:
         return 0
     
     def call_command(self, command, args):
-        print(command)
-        print(args)
+        print(f'command: {command}')
+        print(f'args: {args}')
         
-        # TODO
-        # Passar filesystem
-        return commands_dict[command](*args)
+        commands_dict[command][0](*args)
+
+        return 0
 

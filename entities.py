@@ -7,6 +7,6 @@ class User:
 
 class Filesystem:
     def __init__(self):
-        self.current_dir = []
-        self.fs = {}
+        self.current_dir = ['/']
+        self.fs = {'/': {}}
         

@@ -8,4 +8,6 @@ while (1):
     inp = Input()
     # Checar valor de retorno para possíveis erros
     inp.process(command, current_user, fs)
+    print(f'current_dir: {fs.current_dir}')
+    print(f'filesystem: {fs.fs}')
     
