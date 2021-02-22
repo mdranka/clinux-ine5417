@@ -6,7 +6,7 @@ class Files():
     @staticmethod
     def __get_dir_dict(filesystem):
         # d recebe root
-        d = filesystem.fs[""]
+        d = filesystem.fs
         # Vamos percorrer até chegarmos no diretório atual
         for dir in filesystem.current_dir:
             d = d[dir]
@@ -32,3 +32,5 @@ class Files():
         print(f"filesystem ls: {filesystem.fs}")
         for i in Files.__get_dir_dict(filesystem):
             print(i)
+
+    
