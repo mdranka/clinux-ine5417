@@ -1,4 +1,4 @@
-from utils import user_db
+from db import user_db
 from sys import exit
 from entities import User
 
