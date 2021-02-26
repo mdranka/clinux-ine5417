@@ -1,29 +1,25 @@
-from input_processing import Input
+from input_processing import Input, Command_caller
+from user_management import User_utils
 from entities import User, Filesystem
-
-from user_management import User_utils, user_db
+from colorama import Fore, Back, Style
+from db import user_db
 
 user_db['admin'] = User('admin', '123', 'admin')
 
-def login():
-    print("Faça o seu login:\n\n")
-    while (1):    
-        username = str(input("Nome de usuário: "))
-        passwd = str(input("Senha: "))
-        current_user = User_utils.login_user(username, passwd)
-        if (current_user != 1):
-            return current_user
-        
-        print("Usuário ou senha inválidos, tente novamente")
 
-current_user = login()
+current_user = User_utils.login()
 # Instanciando o sistema de arquivos
 fs = Filesystem()
+
+caller = Command_caller(current_user, fs)
+inp = Input(caller)
     
 while (1):
-    command = str(input(f"{'/'.join(fs.get_path())}$ "))
-    inp = Input()
-    inp.process(command, current_user, fs)
-    print(f'path: {fs.path}')
-    print(f'filesystem: {fs.fs}')
+    command = str(input(f"{Fore.GREEN}{current_user.username}:{Fore.BLUE}{'/'.join(fs.get_path())}{Style.RESET_ALL}$ "))
+    
+    inp.process(command)
+
+    # Para debug:
+    # print(f'path: {fs.path}')
+    # print(f'filesystem: {fs.fs}')
     

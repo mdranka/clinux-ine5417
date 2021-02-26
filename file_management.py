@@ -1,3 +1,5 @@
+from colorama import Fore, Style
+
 # File and Directory management classes
 
 class File_utils():
@@ -12,27 +14,32 @@ class File_utils():
             d = d[dir]
         
         return d
+        
     
     @staticmethod
-    def mkdir(filesystem, filename):
+    def mkdir(user, filesystem, filename):
         File_utils.get_current_dir(filesystem)[filename] = {}
         
     @staticmethod
-    def touch(filesystem, filename):
+    def touch(user, filesystem, filename):
         File_utils.get_current_dir(filesystem)[filename] = []
 
     @staticmethod
-    def rm(filesystem, filename, recursive):
+    def rm(user, filesystem, filename, recursive):
         #TODO
         pass
 
     @staticmethod
-    def ls(filesystem):
-        for i in File_utils.get_current_dir(filesystem):
-            print(i)
+    def ls(user, filesystem):
+        current_dir = File_utils.get_current_dir(filesystem)
+        for i in current_dir:
+            if (isinstance(current_dir[i], dict)):
+                print(f"{Fore.BLUE}{i}{Style.RESET_ALL}")
+            else:
+                print(i)
 
     @staticmethod
-    def cd(filesystem, path):
+    def cd(user, filesystem, path):
         
         d = File_utils.get_current_dir(filesystem)
 

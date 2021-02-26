@@ -1,5 +1,4 @@
 from db import user_db
-from sys import exit
 from entities import User
 
 class User_utils:
@@ -35,12 +34,19 @@ class User_utils:
             print(i)
 
     @staticmethod
-    def login_user(username, passwd):
-        if (username in user_db):
-            if (user_db[username].password == passwd):
-                return user_db[username]
-            return 1
-        return 1
+    def login():
+        print("Faça o seu login:\n\n")
+        while (1):    
+            username = str(input("Nome de usuário: "))
+            
+            passwd = str(input("Senha: "))
+            
+            if (username in user_db):
+                if (user_db[username].password == passwd):
+                    return user_db[username]
+            
+            print("Usuário ou senha inválidos, tente novamente.")
+        
 
     # TODO:
     # Implementar help para os outros comandos de User_utils
